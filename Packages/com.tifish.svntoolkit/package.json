@@ -1,0 +1,13 @@
+{
+  "name": "com.tifish.svntoolkit",
+  "version": "1.0.0",
+  "displayName": "Svn Toolkit",
+  "description": "TortoiseSVN in Unity",
+  "unity": "2018.2",
+  "keywords": [
+    "svn",
+    "subversion"
+  ],
+  "author": "Winston Feng <tifish@gmail.com>",
+  "license": "MIT"
+}

@@ -1,2 +1,4 @@
 # SvnToolkitForUnity
-TortoiseSVN in Unity
+
+- Show TortoiseSVN in Unity.
+- API to execute TortoiseSVN.
