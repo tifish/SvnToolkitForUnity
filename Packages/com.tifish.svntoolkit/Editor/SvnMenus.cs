@@ -10,37 +10,37 @@ namespace SvnToolkit
     {
         static readonly string ProjectPath = Path.GetDirectoryName(Application.dataPath);
 
-        [MenuItem("Assets/SVN Commit...")]
+        [MenuItem("Assets/SVN Commit...", false, 222)]
         static void CommitMenu()
         {
             TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
-        [MenuItem("Assets/SVN/Update")]
+        [MenuItem("Assets/SVN/Update", false, 222)]
         static void UpdateMenu()
         {
             TortoiseSvn.Update(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
-        [MenuItem("Assets/SVN/Add...")]
+        [MenuItem("Assets/SVN/Add...", false, 222)]
         static void AddMenu()
         {
             TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
-        [MenuItem("Assets/SVN/Delete")]
+        [MenuItem("Assets/SVN/Delete", false, 222)]
         static void RemoveMenu()
         {
             TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
-        [MenuItem("Assets/SVN/Revert...")]
+        [MenuItem("Assets/SVN/Revert...", false, 222)]
         static void RevertMenu()
         {
             TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
-        [MenuItem("Assets/SVN/Show log")]
+        [MenuItem("Assets/SVN/Show log", false, 222)]
         static void ShowLogMenu()
         {
             TortoiseSvn.ShowLog(GetSelectedFile(), ProjectPath);
