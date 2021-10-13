@@ -25,19 +25,19 @@ namespace SvnToolkit
         [MenuItem("Assets/SVN/Add...", false, 222)]
         static void AddMenu()
         {
-            TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Add(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
         [MenuItem("Assets/SVN/Delete", false, 222)]
         static void RemoveMenu()
         {
-            TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Remove(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
         [MenuItem("Assets/SVN/Revert...", false, 222)]
         static void RevertMenu()
         {
-            TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Revert(GetSelectedFiles().ToArray(), ProjectPath);
         }
 
         [MenuItem("Assets/SVN/Show log", false, 222)]
