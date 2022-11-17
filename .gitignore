@@ -20,7 +20,9 @@
 [Aa]ssets/Plugins/Editor/JetBrains*
 
 # Visual Studio cache directory
-.vs/
+/.vs/
+/.idea/
+/.svn/
 
 # Gradle cache directory
 .gradle/
@@ -58,3 +60,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+/Packages/com.tifish.svntoolkit/UploadPackage.cmd
+/Packages/com.tifish.svntoolkit/UploadPackage.cmd.meta

@@ -8,51 +8,51 @@ namespace SvnToolkit
 {
     static class SvnMenus
     {
-        static readonly string ProjectPath = Path.GetDirectoryName(Application.dataPath);
+        private static readonly string ProjectPath = Path.GetDirectoryName(Application.dataPath);
 
         [MenuItem("Assets/SVN Commit...", false, 222)]
-        static void CommitMenu()
+        private static void CommitMenu()
         {
-            TortoiseSvn.Commit(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Commit(GetSelectedFiles().ToArray(), "", ProjectPath).ConfigureAwait(false);
         }
 
         [MenuItem("Assets/SVN/Update", false, 222)]
-        static void UpdateMenu()
+        private static void UpdateMenu()
         {
-            TortoiseSvn.Update(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Update(GetSelectedFiles().ToArray(), "", ProjectPath).ConfigureAwait(false);
         }
 
         [MenuItem("Assets/SVN/Add...", false, 222)]
-        static void AddMenu()
+        private static void AddMenu()
         {
-            TortoiseSvn.Add(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Add(GetSelectedFiles().ToArray(), "", ProjectPath).ConfigureAwait(false);
         }
 
         [MenuItem("Assets/SVN/Delete", false, 222)]
-        static void RemoveMenu()
+        private static void RemoveMenu()
         {
-            TortoiseSvn.Remove(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Remove(GetSelectedFiles().ToArray(), "", ProjectPath).ConfigureAwait(false);
         }
 
         [MenuItem("Assets/SVN/Revert...", false, 222)]
-        static void RevertMenu()
+        private static void RevertMenu()
         {
-            TortoiseSvn.Revert(GetSelectedFiles().ToArray(), ProjectPath);
+            TortoiseSvn.Revert(GetSelectedFiles().ToArray(), "", ProjectPath).ConfigureAwait(false);
         }
 
         [MenuItem("Assets/SVN/Show log", false, 222)]
-        static void ShowLogMenu()
+        private static void ShowLogMenu()
         {
-            TortoiseSvn.ShowLog(GetSelectedFile(), ProjectPath);
+            TortoiseSvn.ShowLog(GetSelectedFile(), "", ProjectPath).ConfigureAwait(false);
         }
 
-        static string GetSelectedFile()
+        private static string GetSelectedFile()
         {
             var activeObj = Selection.GetFiltered<Object>(SelectionMode.Assets).FirstOrDefault();
             return activeObj ? AssetDatabase.GetAssetPath(activeObj) : string.Empty;
         }
 
-        static List<string> GetSelectedFiles()
+        private static List<string> GetSelectedFiles()
         {
             var paths = new List<string>();
             foreach (var assetPath in Selection.GetFiltered<Object>(SelectionMode.Assets).Select(AssetDatabase.GetAssetPath))

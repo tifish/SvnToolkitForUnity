@@ -1,23 +1,23 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SvnToolkit
 {
     public static class TortoiseSvn
     {
-        static void ExecuteTortoiseProc(string arguments, string workingDirectory = null)
+        private static async Task<bool> ExecuteTortoiseProc(string arguments, string workingDirectory = "")
         {
-            if (string.IsNullOrEmpty(workingDirectory))
-            {
-                Process.Start("TortoiseProc.exe", arguments);
-                return;
-            }
-
             var oldDir = Environment.CurrentDirectory;
             try
             {
-                Environment.CurrentDirectory = workingDirectory;
-                Process.Start("TortoiseProc.exe", arguments);
+                if (workingDirectory != "")
+                    Environment.CurrentDirectory = workingDirectory;
+                var process = Process.Start(new ProcessStartInfo("TortoiseProc.exe", arguments) { UseShellExecute = true });
+                if (process == null)
+                    return false;
+                await process.WaitForExitAsync();
+                return process.ExitCode == 0;
             }
             finally
             {
@@ -25,34 +25,49 @@ namespace SvnToolkit
             }
         }
 
-        public static void Commit(string[] paths, string workingDirectory = null)
+        public static async Task<bool> Commit(string[] paths, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:commit /path:\"{string.Join("*", paths)}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:commit /path:\"{string.Join("*", paths)}\" {arguments}", workingDirectory);
         }
 
-        public static void Update(string[] paths, string workingDirectory = null)
+        public static async Task<bool> Update(string[] paths, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:update /path:\"{string.Join("*", paths)}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:update /path:\"{string.Join("*", paths)}\" {arguments}", workingDirectory);
         }
 
-        public static void Add(string[] paths, string workingDirectory = null)
+        public static async Task<bool> Add(string[] paths, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:add /path:\"{string.Join("*", paths)}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:add /path:\"{string.Join("*", paths)}\" {arguments}", workingDirectory);
         }
 
-        public static void Remove(string[] paths, string workingDirectory = null)
+        public static async Task<bool> Remove(string[] paths, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:remove /path:\"{string.Join("*", paths)}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:remove /path:\"{string.Join("*", paths)}\" {arguments}", workingDirectory);
         }
 
-        public static void Revert(string[] paths, string workingDirectory = null)
+        public static async Task<bool> Revert(string[] paths, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:revert /path:\"{string.Join("*", paths)}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:revert /path:\"{string.Join("*", paths)}\" {arguments}", workingDirectory);
         }
 
-        public static void ShowLog(string path, string workingDirectory)
+        public static async Task<bool> ShowLog(string path, string arguments = "", string workingDirectory = "")
         {
-            ExecuteTortoiseProc($"/command:log /path:\"{path}\"", workingDirectory);
+            return await ExecuteTortoiseProc($"/command:log /path:\"{path}\" {arguments}", workingDirectory);
+        }
+
+        public static async Task<bool> Cleanup(string path, string arguments = "", string workingDirectory = "")
+        {
+            return await ExecuteTortoiseProc($"/command:cleanup /path:\"{path}\" {arguments}", workingDirectory);
+        }
+
+        public static async Task<bool> Checkout(string url, string path, string arguments = "", string workingDirectory = "")
+        {
+            return await ExecuteTortoiseProc($"/command:checkout /url:{url} /path:\"{path}\" {arguments}", workingDirectory);
+        }
+
+        public static async Task<bool> Resolve(string path, string arguments = "", string workingDirectory = "")
+        {
+            return await ExecuteTortoiseProc($"/command:resolve /path:\"{path}\" {arguments}", workingDirectory);
         }
     }
 }
